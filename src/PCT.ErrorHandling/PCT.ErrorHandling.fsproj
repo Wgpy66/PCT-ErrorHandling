@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
+	<WarningsAsErrors>FS0025;FS0020</WarningsAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>0.1.0</Version>
+	<Authors>Wgpy66</Authors>
+	<Description>F# error handling library with Errorx (system/business separation) and Resultx combinators.</Description>
+	<PackageLicenseExpression>Apache 2.0</PackageLicenseExpression>
+	<PackageProjectUrl>https://github.com/Wgpy66/PCT-ErrorHandling</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/Wgpy66/PCT-ErrorHandling</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="MethodHelper.fs" />
+    <Compile Include="Errorx.fs" />
+    <Compile Include="Resultx.fs" />
+    <Compile Include="Win32ErrorUtils.fs" />
+  </ItemGroup>
+
+</Project>
