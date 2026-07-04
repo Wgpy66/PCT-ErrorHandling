@@ -4,7 +4,7 @@
     <TargetFrameworks>net5.0;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
 	<WarningsAsErrors>FS0025;FS0020</WarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>0.1.0</Version>
+    <Version>0.1.0-snapshot-1</Version>
 	<Authors>Wgpy66</Authors>
 	<Description>F# error handling library with Errorx (system/business separation) and Resultx combinators.</Description>
 	<PackageLicenseExpression>Apache</PackageLicenseExpression>
