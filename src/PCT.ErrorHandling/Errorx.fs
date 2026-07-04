@@ -12,17 +12,18 @@ type Errorx =
     | RuntimeExn of ex: exn
     | NormalError of code: int * msg: string * methods: string list * context: Map<string, obj> option
 
+module Errorx =
     /// Add called methods full name.
-    member this.pushMethods (methodFullName: string) : Errorx =
-        match this with
-            | RuntimeExn _ -> this
+    let pushMethods (methodsFullName: string list) (r: Errorx) : Errorx =
+        match r with
+            | RuntimeExn _ -> r
             | NormalError(code, msg, methods, context) ->
-                NormalError(code, msg, methods @ [ methodFullName ], context)
+                NormalError(code, msg, methods @ methodsFullName , context)
 
     /// Add detail context.
-    member this.addContext (context': Map<string, obj>) : Errorx =
-        match this with
-            | RuntimeExn _ -> this
+    let addContext (context': Map<string, obj>) (r: Errorx) : Errorx =
+        match r with
+            | RuntimeExn _ -> r
             | NormalError(code, msg, methods, context) ->
                 let newContext =
                     match context with
@@ -32,9 +33,9 @@ type Errorx =
                 NormalError(code, msg, methods, Some newContext)
     
     /// Add a message.
-    member this.addMessage (msg: string) : Errorx =
-        match this with
-            | RuntimeExn _ -> this
+    let addMessage (msg: string) (r: Errorx) : Errorx =
+        match r with
+            | RuntimeExn _ -> r
             | NormalError(code, oldMsg, methods, context) ->
                 let newMsg = sprintf "%s (%s)" oldMsg msg
                 NormalError(code, newMsg, methods, context)

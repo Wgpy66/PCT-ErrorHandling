@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/sample/">
+    <Project Path="sample/PCT.ErrorHandling.Sample/PCT.ErrorHandling.Sample.fsproj" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/PCT.ErrorHandling/PCT.ErrorHandling.fsproj" />
   </Folder>

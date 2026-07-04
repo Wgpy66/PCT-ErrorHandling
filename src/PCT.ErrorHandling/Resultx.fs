@@ -40,6 +40,24 @@ module Resultx =
                     ex.Data.["errorCode"] <- code
                     ex.Data.["isFromNormalError"] <- true
                     raise ex
+
+    let addContext (context: Map<string, obj>) (r: Resultx<'T>) : Resultx<'T> =
+        match r with
+            | Ok _ -> r
+            | Error err ->
+                Error(Errorx.addContext context err)
+
+    let addMessage (msg: string) (r: Resultx<'T>) : Resultx<'T> =
+        match r with
+            | Ok _ -> r
+            | Error err ->
+                Error(Errorx.addMessage msg err)
+
+    let pushMethods (methodsFullName: string list) (r: Resultx<'T>) : Resultx<'T> =
+        match r with
+            | Ok _ -> r
+            | Error err ->
+                Error(Errorx.pushMethods methodsFullName err)
     
     /// New a <c>Errorx.NormalError</c> instance with error code and message quickly
     let nerror code msg =
@@ -50,7 +68,7 @@ module Resultx =
         Error(NormalError(code, msg, methods, None))
     
     /// <summary>
-    /// Verify a condition. 
+    /// Verify a condition and new a <c>Errorx.NormalError</c> with error code and message.
     /// If it is true, return <c>Ok(())</c>. Otherwise, return <c>Error(NormalError(...))</c>
     /// </summary>
     let ensure condition code msg =
@@ -59,6 +77,17 @@ module Resultx =
         else 
             let ctx = Map.ofList [("conditionFailedMsg", box msg)]
             Error(NormalError(code, msg, [], Some ctx))
+
+    /// <summary>
+    /// Verify a condition and new a <c>Errorx.NormalError</c> with error code, message, called methods list. 
+    /// If it is true, return <c>Ok(())</c>. Otherwise, return <c>Error(NormalError(...))</c>
+    /// </summary>
+    let ensurewm condition code msg method =
+        if condition then
+            Ok(())
+        else 
+            let ctx = Map.ofList [("conditionFailedMsg", box msg)]
+            Error(NormalError(code, msg, method, Some ctx))
     
     /// Error message formatter.
     let nerrorf code fmt =
